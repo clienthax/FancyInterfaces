@@ -12,11 +12,11 @@ import org.lwjgl.opengl.GL11;
 import uk.co.haxyshideout.FancyInterfaces.helpers.GuiHelper;
 import uk.co.haxyshideout.FancyInterfaces.helpers.SkinLoader;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class GuiPlayerList extends GuiScreen {
 
@@ -29,8 +29,8 @@ public class GuiPlayerList extends GuiScreen {
 	}
 
 
-	static HashMap<String, BufferedImage> cachedSkins = new HashMap<>();
-	static List<String> fetchingSkins = new ArrayList<>();
+	static ConcurrentHashMap<String, BufferedImage> cachedSkins = new ConcurrentHashMap<String, BufferedImage>();
+	static List<String> fetchingSkins = Collections.synchronizedList(new ArrayList<String>());
 	int buttonID = 0;
 	GuiButton previousButton = new GuiButton(buttonID++, 70, 180, 60, 20, "Previous");
 	GuiButton nextButton = new GuiButton(buttonID++, 290, 180, 60, 20, "Next");
